@@ -25,8 +25,11 @@ fn main() {
             "read" => read_todo(&mut todos),
             "update" => update_todo(&mut todos, &input),
             "delete" => delete_todo(&mut todos, &input),
+            "quit" => {
+                break;
+            }
             _ => {
-                eprintln!("Please type proper action");
+                eprintln!("Please type proper action.");
             }
         }
     }

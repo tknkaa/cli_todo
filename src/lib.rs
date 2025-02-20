@@ -4,7 +4,7 @@ pub fn create_todo(todos: &mut Vec<String>, input: &Vec<String>) {
     let new_todo = match input.get(1) {
         Some(new_todo) => new_todo.clone(),
         None => {
-            eprintln!("Please type new todo");
+            eprintln!("Please type new todo.");
             return;
         }
     };
@@ -26,7 +26,7 @@ pub fn delete_todo(todos: &mut Vec<String>, input: &Vec<String>) {
     let todo_to_delete = match input.get(1) {
         Some(todo_to_delete) => todo_to_delete.clone(),
         None => {
-            eprintln!("Please type todo to delete");
+            eprintln!("Please type todo to delete.");
             return;
         }
     };
@@ -50,7 +50,7 @@ pub fn update_todo(todos: &mut Vec<String>, input: &Vec<String>) {
     let todo_to_delete = match input.get(1) {
         Some(todo_to_delete) => todo_to_delete.clone(),
         None => {
-            eprintln!("Please type todo to delete");
+            eprintln!("Please type todo to delete.");
             return;
         }
     };
@@ -58,7 +58,7 @@ pub fn update_todo(todos: &mut Vec<String>, input: &Vec<String>) {
     let todo_to_insert = match input.get(2) {
         Some(todo_to_insert) => todo_to_insert.clone(),
         None => {
-            eprintln!("Please type todo to insert");
+            eprintln!("Please type todo to insert.");
             return;
         }
     };
