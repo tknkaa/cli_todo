@@ -1,5 +1,6 @@
 use std::io;
 fn main() {
+    println!("You can create, read, update or delete your todos.");
     let mut todos: Vec<String> = vec![];
     loop {
         let mut input = String::new();
@@ -44,25 +45,35 @@ fn read_todo(todos: &Vec<String>) {
 }
 
 fn delete_todo(todos: &mut Vec<String>, todo_to_delete: String) {
-    let mut delete_index: Vec<usize> = vec![];
-    for (index, todo) in todos.iter_mut().enumerate() {
+    let mut delete_index: Option<usize> = None;
+    for (index, todo) in todos.iter().enumerate() {
         if *todo == todo_to_delete {
-            delete_index.push(index);
+            delete_index = Some(index);
+            break;
         }
     }
-    for index in delete_index.iter() {
-        todos.remove(*index);
+
+    match delete_index {
+        Some(index) => {
+            todos.remove(index);
+        }
+        None => println!("No result"),
     }
 }
 
 fn update_todo(todos: &mut Vec<String>, todo_to_delete: String, todo_to_insert: String) {
-    let mut delete_index: Vec<usize> = vec![];
-    for (index, todo) in todos.iter_mut().enumerate() {
+    let mut delete_index: Option<usize> = None;
+    for (index, todo) in todos.iter().enumerate() {
         if *todo == todo_to_delete {
-            delete_index.push(index);
+            delete_index = Some(index);
+            break;
         }
     }
-    for index in delete_index.iter() {
-        todos[*index] = todo_to_insert.clone();
+
+    match delete_index {
+        Some(index) => {
+            todos[index] = todo_to_insert;
+        }
+        None => println!("No result"),
     }
 }
