@@ -21,6 +21,10 @@ fn main() {
         } else if action == "delete" {
             let todo_to_delete = input[1].clone();
             delete_todo(&mut todos, todo_to_delete);
+        } else if action == "update" {
+            let todo_to_delete = input[1].clone();
+            let todo_to_insert = input[2].clone();
+            update_todo(&mut todos, todo_to_delete, todo_to_insert);
         } else {
             eprintln!("please type proper action");
         }
@@ -48,5 +52,17 @@ fn delete_todo(todos: &mut Vec<String>, todo_to_delete: String) {
     }
     for index in delete_index.iter() {
         todos.remove(*index);
+    }
+}
+
+fn update_todo(todos: &mut Vec<String>, todo_to_delete: String, todo_to_insert: String) {
+    let mut delete_index: Vec<usize> = vec![];
+    for (index, todo) in todos.iter_mut().enumerate() {
+        if *todo == todo_to_delete {
+            delete_index.push(index);
+        }
+    }
+    for index in delete_index.iter() {
+        todos[*index] = todo_to_insert.clone();
     }
 }
