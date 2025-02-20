@@ -43,10 +43,7 @@ fn create_todo(todos: &mut Vec<String>, new_todo: String) {
 }
 
 fn read_todo(todos: &Vec<String>) {
-    print!("ToDos: ");
-    for todo in todos.iter() {
-        print!("{} ", todo);
-    }
+    print!("ToDos: {:?}", todos);
     print!("\n");
 }
 
