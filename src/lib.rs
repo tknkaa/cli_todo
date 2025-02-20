@@ -8,12 +8,12 @@ pub fn create_todo(todos: &mut Vec<String>, input: &Vec<String>) {
             return;
         }
     };
-    for todo in todos.iter() {
-        if *todo == new_todo {
-            eprintln!("It already exists.");
-            return;
-        }
+
+    if todos.iter().any(|todo| *todo == new_todo) {
+        eprintln!("It already exists.");
+        return;
     }
+
     todos.push(new_todo);
 }
 
@@ -30,13 +30,8 @@ pub fn delete_todo(todos: &mut Vec<String>, input: &Vec<String>) {
             return;
         }
     };
-    let mut delete_index: Option<usize> = None;
-    for (index, todo) in todos.iter().enumerate() {
-        if *todo == todo_to_delete {
-            delete_index = Some(index);
-            break;
-        }
-    }
+
+    let delete_index = todos.iter().position(|todo| *todo == todo_to_delete);
 
     match delete_index {
         Some(index) => {
@@ -63,13 +58,7 @@ pub fn update_todo(todos: &mut Vec<String>, input: &Vec<String>) {
         }
     };
 
-    let mut delete_index: Option<usize> = None;
-    for (index, todo) in todos.iter().enumerate() {
-        if *todo == todo_to_delete {
-            delete_index = Some(index);
-            break;
-        }
-    }
+    let delete_index = todos.iter().position(|todo| *todo == todo_to_delete);
 
     match delete_index {
         Some(index) => {
