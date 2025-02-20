@@ -10,32 +10,41 @@ fn main() {
             .split_whitespace()
             .map(|s| s.parse().unwrap())
             .collect();
-        let action = input[0].clone();
+        let action = match input.get(0) {
+            Some(action) => action.clone(),
+            None => {
+                eprintln!("No input");
+                return;
+            }
+        };
 
         if action == "create" {
-            let todo = input[1].clone();
-            create_todo(&mut todos, todo);
+            create_todo(&mut todos, &input);
         } else if action == "read" {
             read_todo(&todos);
         } else if action == "quit" {
             break;
         } else if action == "delete" {
-            let todo_to_delete = input[1].clone();
-            delete_todo(&mut todos, todo_to_delete);
+            delete_todo(&mut todos, &input);
         } else if action == "update" {
-            let todo_to_delete = input[1].clone();
-            let todo_to_insert = input[2].clone();
-            update_todo(&mut todos, todo_to_delete, todo_to_insert);
+            update_todo(&mut todos, &input);
         } else {
-            eprintln!("please type proper action");
+            eprintln!("Please type proper action");
         }
     }
 }
 
-fn create_todo(todos: &mut Vec<String>, new_todo: String) {
+fn create_todo(todos: &mut Vec<String>, input: &Vec<String>) {
+    let new_todo = match input.get(1) {
+        Some(new_todo) => new_todo.clone(),
+        None => {
+            eprintln!("Please type new todo");
+            return;
+        }
+    };
     for todo in todos.iter() {
         if *todo == new_todo {
-            println!("It already exists.");
+            eprintln!("It already exists.");
             return;
         }
     }
@@ -47,7 +56,14 @@ fn read_todo(todos: &Vec<String>) {
     print!("\n");
 }
 
-fn delete_todo(todos: &mut Vec<String>, todo_to_delete: String) {
+fn delete_todo(todos: &mut Vec<String>, input: &Vec<String>) {
+    let todo_to_delete = match input.get(1) {
+        Some(todo_to_delete) => todo_to_delete.clone(),
+        None => {
+            eprintln!("Please type todo to delete");
+            return;
+        }
+    };
     let mut delete_index: Option<usize> = None;
     for (index, todo) in todos.iter().enumerate() {
         if *todo == todo_to_delete {
@@ -64,7 +80,23 @@ fn delete_todo(todos: &mut Vec<String>, todo_to_delete: String) {
     }
 }
 
-fn update_todo(todos: &mut Vec<String>, todo_to_delete: String, todo_to_insert: String) {
+fn update_todo(todos: &mut Vec<String>, input: &Vec<String>) {
+    let todo_to_delete = match input.get(1) {
+        Some(todo_to_delete) => todo_to_delete.clone(),
+        None => {
+            eprintln!("Please type todo to delete");
+            return;
+        }
+    };
+
+    let todo_to_insert = match input.get(2) {
+        Some(todo_to_insert) => todo_to_insert.clone(),
+        None => {
+            eprintln!("Please type todo to insert");
+            return;
+        }
+    };
+
     let mut delete_index: Option<usize> = None;
     for (index, todo) in todos.iter().enumerate() {
         if *todo == todo_to_delete {
