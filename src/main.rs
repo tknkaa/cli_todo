@@ -32,8 +32,14 @@ fn main() {
     }
 }
 
-fn create_todo(todos: &mut Vec<String>, todo: String) {
-    todos.push(todo);
+fn create_todo(todos: &mut Vec<String>, new_todo: String) {
+    for todo in todos.iter() {
+        if *todo == new_todo {
+            println!("It already exists.");
+            return;
+        }
+    }
+    todos.push(new_todo);
 }
 
 fn read_todo(todos: &Vec<String>) {
